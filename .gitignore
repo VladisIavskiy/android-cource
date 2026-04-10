@@ -1,0 +1,23 @@
+# Настройки IDE
+.idea/
+*.iml
+*.iws
+
+# Сборка и временные файлы
+build/
+*/build/
+.gradle/
+/local.properties
+
+# Логи и кэш
+*.log
+.DS_Store
+captures/
+
+# Native (если используете C++)
+.externalNativeBuild/
+.cxx/
+
+# Специфично для Android Studio
+.navigation/
+assetWizardSettings.xml

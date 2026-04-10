@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="crossedOutPriceText">
+    <font color="#808080"><s>999.10 ₽</s></font>
+    </string>
+
+    <string name="realPriceText">
+        <b>100</b> ₽ /шт
+    </string>>
+
+    <string name="rate">
+        <b>5.0</b>
+    </string>
+
+    <string name="buttonBuy">
+    <font color="#6200EE"><s>Покупаю</s></font>
+    </string>
+
+</resources>
