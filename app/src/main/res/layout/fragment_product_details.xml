@@ -157,4 +157,32 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <!-- todo Экран ошибки -->
+    <LinearLayout
+        android:id="@+id/errorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/no_internet" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Произошла ошибка сети" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Повторить" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

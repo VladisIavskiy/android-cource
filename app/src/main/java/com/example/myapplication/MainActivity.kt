@@ -9,6 +9,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
 
+    // todo в debug посмотреть ключ. открыть в браузере,
+    //  подгружается товар. как называеются недостающие поля.
+    //  некоторые будут возвращать null. которые null сделать в ProductDetails типы nullable.
+    //  сделатьVisibilityGone
+
+    // android kotlin прогнать. поготовиться
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

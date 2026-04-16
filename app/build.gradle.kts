@@ -3,6 +3,8 @@ import org.gradle.kotlin.dsl.dependencies
 
 plugins {
     alias(libs.plugins.android.application)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.20"
+
 }
 
 android {
@@ -43,6 +45,10 @@ dependencies {
     implementation(libs.fragment.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation("com.github.bumptech.glide:glide:4.16.0")

@@ -1,7 +1,11 @@
 package com.example.myapplication
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+@Serializable
 data class ProductDetails(
-    val name: String,
-    val description: String,
-    val mainImage: String,
+    @SerialName("id") val id: Long,
+    @SerialName("name") val name: String,
+    @SerialName("image") val image: ProductImage,
+    @SerialName("description") val description: String
 )
