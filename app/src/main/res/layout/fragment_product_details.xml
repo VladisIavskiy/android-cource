@@ -45,20 +45,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="@string/rate"
         android:textSize="16sp"
         app:drawableStartCompat="@drawable/black_star"
         app:drawableTint="#FFD700"
         app:layout_constraintTop_toTopOf="@id/productMainImage"
         app:layout_constraintStart_toEndOf="@id/productMainImage" />
 
-    <!-- Скидончик -->
+    <!-- Старая цена -->
     <TextView
-        android:id="@+id/crossedOutPriceText"
+        android:id="@+id/oldPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/crossedOutPriceText"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/rate"
@@ -66,20 +64,19 @@
 
     <!-- Процент скидки (справа от старой цены) -->
     <TextView
-        android:id="@+id/percent"
+        android:id="@+id/discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/oval_background"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
-        android:text="@string/discount"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/crossedOutPriceText"
-        app:layout_constraintTop_toTopOf="@id/crossedOutPriceText"
-        app:layout_constraintBottom_toBottomOf="@id/crossedOutPriceText" />
+        app:layout_constraintStart_toEndOf="@id/oldPrice"
+        app:layout_constraintTop_toTopOf="@id/oldPrice"
+        app:layout_constraintBottom_toBottomOf="@id/oldPrice" />
 
     <!-- Реальная цена (под старой ценой) -->
     <TextView
@@ -87,11 +84,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/realPriceText"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/crossedOutPriceText"
+        app:layout_constraintTop_toBottomOf="@id/oldPrice"
         app:layout_constraintStart_toStartOf="@id/rate" />
+
+    <TextView
+        android:id="@+id/cart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/realPriceText"
+        app:layout_constraintTop_toTopOf="@id/realPriceText"
+        app:layout_constraintBottom_toBottomOf="@id/realPriceText"/>
 
     <Button
         android:id="@+id/buttonBuy"

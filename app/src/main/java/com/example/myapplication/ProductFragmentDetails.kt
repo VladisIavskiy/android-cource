@@ -22,10 +22,8 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
     @SuppressLint("UseCompatTextViewDrawableApis")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadProductDetails(1)
         _binding = FragmentProductDetailsBinding.bind(view)
-
-        binding.crossedOutPriceText.paintFlags = binding.crossedOutPriceText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        loadProductDetails(1000)
 
         binding.buttonBuy.setOnClickListener {
             // Создаём новый фрагмент (PostFragment)
@@ -41,11 +39,37 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
     }
 
     private fun showProductDetails(details: ProductDetails) {
+
+        binding.productName.setTextOrInvisible(details.name)
+
         Glide.with(requireContext())
-            .load(details.image.url)
+            .load(details.image?.url)
             .into(binding.productMainImage)
-        binding.productName.text = details.name
-        binding.productDescription.text = details.description
+
+        val priceLabel = details.price?.let {
+            "$it ₽" + (details.priceUnit?.let { unit -> " / $unit" } ?: "")
+        }
+        binding.realPriceText.setTextOrInvisible(priceLabel)
+
+        binding.rate.setTextOrInvisible(details.rating)
+
+        val componentsCarts = listOf(details.cartStep, details.cartUnit)
+
+        val carts = componentsCarts.fold("") { acc, item ->
+            if (item != null) "$acc $item".trim() else acc
+        }.ifEmpty { null }
+
+        binding.cart.setTextOrInvisible(carts)
+
+        val discountText = details.discount?.let { "-$it%" }
+
+        binding.discount.setTextOrInvisible(discountText)
+
+        val oldPriceLabel = details.oldPrice?.let { "$it ₽" }
+        binding.oldPrice.paintFlags = binding.oldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        binding.oldPrice.setTextOrInvisible(oldPriceLabel)
+
+        binding.productDescription.setTextOrInvisible(details.description)
     }
 
     private fun loadProductDetails(productId: Long) {

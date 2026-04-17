@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     // todo в debug посмотреть ключ. открыть в браузере,
     //  подгружается товар. как называеются недостающие поля.
     //  некоторые будут возвращать null. которые null сделать в ProductDetails типы nullable.
-    //  сделатьVisibilityGone
+    //  сделать VisibilityGone
 
     // android kotlin прогнать. поготовиться
 
