@@ -111,7 +111,15 @@
         app:layout_constraintTop_toBottomOf="@id/realPriceText"
         app:layout_constraintStart_toStartOf="@id/rate"/>
 
-    <!-- Описание товара — сразу под кнопкой (под priceLayout) -->
+    <!-- Барьер, который следит за нижними границами картинки и кнопки -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="productMainImage,buttonBuy" />
+
+    <!-- Описание привязано к барьеру -->
     <TextView
         android:id="@+id/productDescription"
         android:layout_width="0dp"
@@ -121,7 +129,7 @@
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonBuy" />
+        app:layout_constraintTop_toBottomOf="@id/barrier" />
 
     <!--  скролл картинок товара   -->
     <HorizontalScrollView
@@ -164,32 +172,69 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- todo Экран ошибки -->
     <LinearLayout
         android:id="@+id/errorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="32dp"
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/no_internet" />
+            android:id="@+id/error_img"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/errorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#212121"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Произошла ошибка сети" />
+            android:textColor="#757575"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="32dp" />
 
         <Button
             android:id="@+id/retryButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Повторить" />
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Повторить"
+            android:textAllCaps="false" />
+
     </LinearLayout>
 
+
+    <!-- Группа для управления контентом -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/contentGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="productName,productMainImage,rate,oldPrice,discount,
+        realPriceText,cart,buttonBuy,productDescription,horizontalScrollView" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

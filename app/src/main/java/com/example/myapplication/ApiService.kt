@@ -9,5 +9,5 @@ interface ApiService {
     @GET("rpc/get_product")
     fun getProductDetails(
         @Query("id") productId: Long
-    ): Call<ProductDetails>
+    ): Call<ProductResponse>
 }

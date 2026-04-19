@@ -8,14 +8,7 @@ import com.example.myapplication.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
-
-    // todo в debug посмотреть ключ. открыть в браузере,
-    //  подгружается товар. как называеются недостающие поля.
-    //  некоторые будут возвращать null. которые null сделать в ProductDetails типы nullable.
-    //  сделать VisibilityGone
-
-    // android kotlin прогнать. поготовиться
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         // Показываем фрагмент с деталями товара
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null) { // смотрим первый ли раз запускаем Activity
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, ProductFragmentDetails())
                 .commit()

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.example.myapplication.databinding.CouponActivityBinding
-import androidx.fragment.app.commit
 
 class CouponFragment: Fragment() {
 
@@ -27,8 +27,7 @@ class CouponFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.MainMenu.setOnClickListener {
-            parentFragmentManager.popBackStack()
-            parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack("MAIN_SCREEN", POP_BACK_STACK_INCLUSIVE)
         }
     }
 }
