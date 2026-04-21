@@ -3,9 +3,7 @@ package com.example.myapplication
 import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.FragmentProductDetailsBinding
@@ -24,7 +22,7 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailsBinding.bind(view)
-        val currentProductId = 100L
+        val currentProductId = 2L
         loadProductDetails(currentProductId)
 
         binding.buttonBuy.setOnClickListener {
@@ -42,6 +40,10 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
             loadProductDetails(currentProductId)
         }
 
+        binding.productDescription.setOnClickListener {
+            val isExpanded = binding.productDescription.maxLines == Integer.MAX_VALUE
+            binding.productDescription.maxLines = if (isExpanded) 2 else Integer.MAX_VALUE
+        }
     }
 
     private fun showProductDetails(details: ProductResponse) {
