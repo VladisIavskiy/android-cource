@@ -80,7 +80,7 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
         }
     }
 
-    private fun loadProductDetails(productId: Long) {
+    fun loadProductDetails(productId: Long) {
         // Перед началом запроса: показываем крутилку, прячем всё остальное
         binding.progressBar.visibility = View.VISIBLE
         binding.contentGroup.visibility = View.GONE

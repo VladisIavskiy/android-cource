@@ -21,3 +21,6 @@ captures/
 # Специфично для Android Studio
 .navigation/
 assetWizardSettings.xml
+
+# key
+key
