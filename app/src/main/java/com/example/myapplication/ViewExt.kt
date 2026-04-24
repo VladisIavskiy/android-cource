@@ -1,10 +1,11 @@
 package com.example.myapplication
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 
 // Расширение для любой View: ставит текст, если он есть, иначе скрывает View
-fun TextView.setTextOrInvisible(value: Any?) {
+fun TextView.setTextOrGone(value: Any?) {
     // Проверяем не только на null, но и на пустую строку
     if (value != null && value.toString().isNotEmpty()) {
         this.text = value.toString()
