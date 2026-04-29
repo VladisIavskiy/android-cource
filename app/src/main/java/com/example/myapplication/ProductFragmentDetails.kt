@@ -1,10 +1,12 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.FragmentProductDetailsBinding
@@ -23,7 +25,7 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailsBinding.bind(view)
-        val currentProductId = 5L
+        val currentProductId = 1L
         loadProductDetails(currentProductId)
 
         binding.buttonBuy.setOnClickListener {
@@ -45,6 +47,13 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
             val isExpanded = binding.productDescription.maxLines == Integer.MAX_VALUE
             binding.productDescription.maxLines = if (isExpanded) 2 else Integer.MAX_VALUE
         }
+
+        setupFullScreenOpening(
+            binding.productMainImage,
+            binding.productImage1,
+            binding.productImage2,
+            binding.productImage3
+        )
     }
 
     private fun showProductDetails(details: ProductResponse) {
