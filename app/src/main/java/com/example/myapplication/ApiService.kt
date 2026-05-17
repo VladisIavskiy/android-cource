@@ -19,4 +19,7 @@ interface ApiService {
     data class ProductImagesResponse(
         @SerialName("images") val images: List<ProductImage>
     )
+
+    @GET("rpc/get_products_category")
+    fun getProductsCategory(@Query("id") categoryId: Long): Call<Any> // todo поменять тип тут
 }

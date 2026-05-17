@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.FragmentProductDetailsBinding
 import retrofit2.Call
@@ -21,13 +23,15 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
     private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private val productImagesAdapter = ProductImagesAdapter()
+
     @SuppressLint("UseCompatTextViewDrawableApis")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProductDetailsBinding.bind(view)
         val currentProductId = 1L
         loadProductDetails(currentProductId)
-
+        binding.productImagesView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.buttonBuy.setOnClickListener {
             // Создаём новый фрагмент (PostFragment)
             val fragment = PostFragment()
@@ -47,13 +51,6 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
             val isExpanded = binding.productDescription.maxLines == Integer.MAX_VALUE
             binding.productDescription.maxLines = if (isExpanded) 2 else Integer.MAX_VALUE
         }
-
-        setupFullScreenOpening(
-            binding.productMainImage,
-            binding.productImage1,
-            binding.productImage2,
-            binding.productImage3
-        )
     }
 
     private fun showProductDetails(details: ProductResponse) {
@@ -92,7 +89,6 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
 
     fun loadProductDetails(productId: Long) {
         binding.progressBar.visibility = View.VISIBLE
-        binding.contentGroup.visibility = View.GONE
         binding.errorLayout.visibility = View.GONE
 
         apiService.getProductDetails(productId).enqueue(object : Callback<ProductResponse> {
@@ -102,7 +98,6 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
                 if (productDetails?.requestError?.isNotEmpty() == true || productDetails == null) {
                     showError("Товар не найден", R.drawable.good_not_found)
                 } else {
-                    binding.contentGroup.visibility = View.VISIBLE
                     showProductDetails(productDetails)
                     loadAdditionalImages(productId)
                 }
@@ -136,33 +131,35 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
         // Используем контекст из binding.root
         val context = binding.root.context
 
-        val imageViews = listOf(binding.productImage1, binding.productImage2, binding.productImage3)
+        val imagesContainer = binding.productImagesView
+        imagesContainer.adapter = productImagesAdapter
+        Log.d("MY_LOGGI", "Устанавливаю список из ${images.size} изображений")
+        productImagesAdapter.setImages(images)
+
 
         // Скрываем все ImageView в начале
-        imageViews.forEach { it.visibility = View.GONE }
 
-        if (images.isEmpty()) {
-            binding.scrollImages.visibility = View.GONE
-            return
-        }
+//        if (images.isEmpty()) {
+//            binding.scrollImages.visibility = View.GONE
+//            return
+//        }
 
         // Показываем блок
-        binding.scrollImages.visibility = View.VISIBLE
+//        binding.scrollImages.visibility = View.VISIBLE
 
-        images.forEachIndexed { index, productImage ->
-            if (index < imageViews.size) {
-                val imageView = imageViews[index]
-                Glide.with(context)
-                    .load(productImage.url)
-                    .into(imageView)
-                imageView.visibility = View.VISIBLE
-            }
-        }
+//        images.forEachIndexed { index, productImage ->
+//            if (index < imageViews.size) {
+//                val imageView = imageViews[index]
+//                Glide.with(context)
+//                    .load(productImage.url)
+//                    .into(imageView)
+//                imageView.visibility = View.VISIBLE
+//            }
+//        }
     }
 
     private fun showError(message: String, imageRes: Int) {
         with(binding) {
-            contentGroup.visibility = View.GONE
             errorLayout.visibility = View.VISIBLE
             errorText.text = message
             errorImg.setImageResource(imageRes)
