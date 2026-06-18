@@ -126,8 +126,6 @@
         app:layout_constraintTop_toBottomOf="@id/realPriceText"
         app:layout_constraintStart_toStartOf="@id/rate" />
 
-
-
     <!-- Барьер, который следит за нижними границами картинки и кнопки -->
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -230,6 +228,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/goodGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="textViewBanana, productName, productMainImage, rate,
+                                    oldPrice, discount, realPriceText, cart, buttonBuy,
+                                    productDescription, product_images_view" />
 
     <ProgressBar
         android:id="@+id/progressBar"
