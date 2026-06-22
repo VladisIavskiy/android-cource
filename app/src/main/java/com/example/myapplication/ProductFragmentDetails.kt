@@ -1,9 +1,12 @@
 package com.example.myapplication
 
+import android.app.Dialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -19,7 +22,7 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
     private var _binding: FragmentProductDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val currentProductId = 1L
+    private val currentProductId = 0L
 
     private val productImagesAdapter = ProductImagesAdapter()
 
@@ -42,6 +45,13 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
                 false
             )
             adapter = productImagesAdapter
+        }
+
+        binding.productImagesView.adapter = productImagesAdapter
+
+        // Перехватываем клик из адаптера
+        productImagesAdapter.onImageClickListener = { productImage ->
+            showFullScreenImage(productImage.url)
         }
     }
 
@@ -144,11 +154,8 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
 
                     Log.d("PRODUCT_DEBUG", "product = $productDetails")
 
-                    if (productDetails == null) {
-                        showError(
-                            "Не удалось загрузить товар",
-                            R.drawable.good_not_found
-                        )
+                    if (productDetails?.requestError?.isNotEmpty() == true || productDetails == null) {
+                        showError("Товар не найден", R.drawable.good_not_found)
                         return
                     }
 
@@ -261,6 +268,28 @@ class ProductFragmentDetails : Fragment(R.layout.fragment_product_details) {
                 .load(details.image?.url)
                 .into(productMainImage)
         }
+    }
+
+    private fun showFullScreenImage(imageUrl: String) {
+        val dialog = Dialog(requireContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+
+        val imageView = ImageView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            scaleType = ImageView.ScaleType.FIT_CENTER
+
+            Glide.with(this).load(imageUrl).into(this)
+
+            // Повторный клик закрывает полноэкранный режим и возвращает назад
+            setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
+        dialog.setContentView(imageView)
+        dialog.show()
     }
 
     private fun showProductImages(images: List<ProductImage>) {

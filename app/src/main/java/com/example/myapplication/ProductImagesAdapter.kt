@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 class ProductImagesAdapter : RecyclerView.Adapter<ProductImageViewHolder>() {
     private val images: MutableList<ProductImage> = mutableListOf()
 
+    // переменная-слушатель для клика наружу
+    var onImageClickListener: ((ProductImage) -> Unit)? = null
+
     // todo отобразить для отображения новый список [images]
     fun setImages(images: List<ProductImage>) {
         this.images.clear()
@@ -23,6 +26,11 @@ class ProductImagesAdapter : RecyclerView.Adapter<ProductImageViewHolder>() {
     override fun onBindViewHolder(holder: ProductImageViewHolder, position: Int) {
         val image = images[position]
         holder.bind(image)
+
+        // вешаем клик на весь список
+        holder.itemView.setOnClickListener {
+            onImageClickListener?.invoke(image)
+        }
     }
 
     override fun getItemCount(): Int {
